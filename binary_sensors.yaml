@@ -1,0 +1,12 @@
+#- platform: mqtt
+#  name: "Closet Motion Sensor"
+#  state_topic: "shouse/tele/rfbridge-0/RESULT"
+#  device_class: motion
+
+#- platform: mqtt
+#  name: "rf remote A"
+#  state_topic: "shouse/tele/rfbridge-0/RESULT"
+#  payload_on: "3"
+#  payload_off: "0"
+#  device_class: opening
+#  value_template: '{{ value_json.RfReceived.RfKey }}'

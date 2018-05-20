@@ -1,0 +1,4 @@
+- name: lambda_telegram
+  platform: rest
+  resource: https://aws.bolsunovskyi.com/v1/telegram/postback?username=bolsunovskyi&pwd=tVddv6bnGFUGCKvuC3kPEkA2
+  method: POST

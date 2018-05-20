@@ -1,0 +1,43 @@
+- trigger:
+    platform: homeassistant
+    event: start
+  action:
+    service: notify.lambda_telegram
+    data:
+      message: "home assistant start"
+  alias: hass_start
+
+- trigger:
+    platform: homeassistant
+    event: shutdown
+  action:
+    service: notify.lambda_telegram
+    data: 
+      message: "home assistant shutdown"
+  alias: hass_shutdown
+
+- trigger:
+    platform: numeric_state
+    entity_id: sensor.rfbridge0
+    below: 17
+  condition: 
+  action:
+    service: notify.lambda_telegram
+    data:
+      message: "rf bridge triggered"
+
+#- trigger:
+#    platform: mqtt
+#    topic: "shouse/tele/rfbridge-0/RESULT"
+#  condition: 
+#    condition: template
+#    value_template: '{{ trigger.payload.value_json.RfReceived.RfKey == 3 }}'
+#  action:
+#    service: notify.lambda_telegram
+#    data:
+#      message: "rf remote A pressed"
+#  alias: rf_remote_a
+
+#- trigger:
+#    platform: state
+#    entity_id: binary_sensor.
