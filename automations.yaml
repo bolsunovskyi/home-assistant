@@ -24,40 +24,13 @@
 #    data:
 #      message: "rf bridge triggered, key: {{ states.sensor.rfbridge0.state }}, last_changed: {{ states.sensor.rfbridge0.last_changed }}"
 
-- alias: Closet door sensor
-  trigger:
-    platform: state
-    entity_id: sensor.rgbridge0
-  condition:
-    - condition: state
-      entity_id: sensor.rfbridge0
-      state: '1'
-  action:
-    - service: notify.lambda_telegram
-      data:
-        message: "door open sensor"
-    - service: mqtt.publish
-      data:
-        topic: hass/sensors/pir/closet
-        payload_template: '{{ as_timestamp(states.sensor.rfbridge0.last_changed) }}'
-    - service: mqtt.publish
-      data:
-        topic: hass/switches/virtual/closet
-        payload: '1'
-    - service: mqtt.publish
-      data:
-        topic: shouse/cmnd/basic-1/POWER
-        payload: 'ON'
-    
-
 - alias: Turn on closet light when there is movement
   trigger:
     platform: state
     entity_id: sensor.rfbridge0
   condition:
-    - condition: state
-      entity_id: sensor.rfbridge0
-      state: '2'
+    - condition: template
+      value_template: "{{ states.sensor.rfbridge0.state == '1' or states.sensor.rfbridge0.state == '2' }}"
   action:
     - service: mqtt.publish
       data:
@@ -81,9 +54,6 @@
     - condition: template
       value_template: "{{ (as_timestamp(now()) - (states.sensor.pircloset.state | float)) > 30 and states.sensor.virtualswitch.state == '1' }}"
   action:
-#    - service: notify.lambda_telegram
-#      data:
-#        message: "timer 3, time: {{ (as_timestamp(now()) - (states.sensor.pircloset.state | float)) }}"
     - service: mqtt.publish
       data:
         topic: hass/switches/virtual/closet
@@ -92,35 +62,3 @@
       data:
         topic: shouse/cmnd/basic-1/POWER
         payload: 'OFF'
-
-#- alias: Turn off closet light 10 minutes after last movement
-#  trigger:
-#    platform: template
-#    entity_id: sensor.rfbridge0
-#    value_template: '{{ states.sensor.rgbridge0.last_changed }}'
-#    to: '2'
-#    above: 1
-#    below: 3
-#    for:
-#      minutes: 1
-#  action:
-#    service: notify.lambda_telegram
-#    data:
-#      message: "light off"
-
-
-#- trigger:
-#    platform: mqtt
-#    topic: "shouse/tele/rfbridge-0/RESULT"
-#  condition: 
-#    condition: template
-#    value_template: '{{ trigger.payload.value_json.RfReceived.RfKey == 3 }}'
-#  action:
-#    service: notify.lambda_telegram
-#    data:
-#      message: "rf remote A pressed"
-#  alias: rf_remote_a
-
-#- trigger:
-#    platform: state
-#    entity_id: binary_sensor.
