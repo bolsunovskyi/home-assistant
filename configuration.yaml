@@ -77,3 +77,5 @@ mqtt:
 binary_sensor: !include binary_sensors.yaml
 sensor: !include sensors.yaml
 notify: !include notify.yaml
+input_select: !include input_select.yaml
+input_boolean: !include input_boolean.yaml

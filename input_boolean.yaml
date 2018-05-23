@@ -1,0 +1,7 @@
+plants_light:
+  name: Plants Light
+  initial: off
+
+test_bool:
+  name: Test Button
+  initial: off

@@ -10,3 +10,10 @@
 #  payload_off: "0"
 #  device_class: opening
 #  value_template: '{{ value_json.RfReceived.RfKey }}'
+
+- platform: mqtt
+  name: "closet-sensors"
+  state_topic: "hass/options/sensors/closet"
+  payload_on: "1"
+  payload_off: "0"
+  force_update: true

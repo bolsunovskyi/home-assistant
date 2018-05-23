@@ -16,13 +16,14 @@
       message: "home assistant shutdown"
   alias: hass_shutdown
 
-#- trigger:
-#    platform: state
-#    entity_id: sensor.rfbridge0
-#  action:
-#    service: notify.lambda_telegram
-#    data:
-#      message: "rf bridge triggered, key: {{ states.sensor.rfbridge0.state }}, last_changed: {{ states.sensor.rfbridge0.last_changed }}"
+- alias: rf bridge debug
+  trigger:
+    platform: state
+    entity_id: sensor.rfbridge0
+  action:
+    service: notify.lambda_telegram
+    data:
+      message: "rf bridge triggered, key: {{ states.sensor.rfbridge0.state }}, last_changed: {{ states.sensor.rfbridge0.last_changed }}"
 
 - alias: Turn on closet light when there is movement
   trigger:
@@ -30,7 +31,7 @@
     entity_id: sensor.rfbridge0
   condition:
     - condition: template
-      value_template: "{{ states.sensor.rfbridge0.state == '1' or states.sensor.rfbridge0.state == '2' }}"
+      value_template: "{{ (states.sensor.rfbridge0.state == '1' or states.sensor.rfbridge0.state == '2') }}"
   action:
     - service: mqtt.publish
       data:
@@ -46,13 +47,13 @@
         payload: 'ON'
 
 
-- alias: Turn of lights by time
+- alias: Turn off closet lights by time
   trigger:
     platform: time
     seconds: 30
   condition:
     - condition: template
-      value_template: "{{ (as_timestamp(now()) - (states.sensor.pircloset.state | float)) > 30 and states.sensor.virtualswitch.state == '1' }}"
+      value_template: "{{ (as_timestamp(now()) - (states.sensor.pircloset.state | float)) > (states.input_select.closet_timeout.state | float) and states.sensor.virtualswitch.state == '1' }}"
   action:
     - service: mqtt.publish
       data:
@@ -62,3 +63,60 @@
       data:
         topic: shouse/cmnd/basic-1/POWER
         payload: 'OFF'
+
+- alias: Turn off plants light
+  trigger:
+    platform: time
+    at: '22:15:00'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: shouse/cmnd/basic-2/POWER
+        payload: 'OFF'
+
+- alias: Turn on plants light
+  trigger:
+    platform: sun
+    event: sunset
+    offset: '-00:30:00'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: shouse/cmnd/basic-2/POWER
+        payload: 'ON'
+
+- alias: Turn on plants light by button
+  trigger:
+    platform: template
+#    entity_id: input_boolean.plants_light
+    value_template: "{{ states.input_boolean.plants_light.state == 'on' }}"
+    #state: 'on'
+#  condition:
+#    condition: state
+#    entity_id: input_boolean.plants_light
+  action:
+    #- service: mqtt.publish
+    #  data:
+    #    topic: shouse/cmnd/basic-2/POWER
+    #    payload: 'ON'
+    - service: notify.lambda_telegram
+      data:
+        message: "Turn on plants light by button"
+
+- alias: Turn off plants light by button
+  trigger:
+    platform: template
+#    entity_id: input_boolean.plants_light
+    value_template: "{{ states.input_boolean.plants_light.state == 'off' }}"
+    #state: 'on'
+#  condition:
+#    condition: state
+#    entity_id: input_boolean.plants_light
+  action:
+    #- service: mqtt.publish
+    #  data:
+    #    topic: shouse/cmnd/basic-2/POWER
+    #    payload: 'ON'
+    - service: notify.lambda_telegram
+      data: 
+        message: "Turn off plants light by button"
