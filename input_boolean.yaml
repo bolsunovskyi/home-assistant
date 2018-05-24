@@ -1,7 +1,11 @@
 plants_light:
-  name: Plants Light
+  name: Лампа для цветов
   initial: off
 
 test_bool:
   name: Test Button
+  initial: off
+
+closet_light:
+  name: Свет в кладовке
   initial: off

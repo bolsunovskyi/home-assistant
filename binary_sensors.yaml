@@ -1,19 +1,20 @@
-#- platform: mqtt
-#  name: "Closet Motion Sensor"
-#  state_topic: "shouse/tele/rfbridge-0/RESULT"
-#  device_class: motion
-
-#- platform: mqtt
-#  name: "rf remote A"
-#  state_topic: "shouse/tele/rfbridge-0/RESULT"
-#  payload_on: "3"
-#  payload_off: "0"
-#  device_class: opening
-#  value_template: '{{ value_json.RfReceived.RfKey }}'
+- platform: mqtt
+  name: "basic-0"
+  state_topic: "shouse/cmnd/basic-0/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  force_update: true
 
 - platform: mqtt
-  name: "closet-sensors"
-  state_topic: "hass/options/sensors/closet"
-  payload_on: "1"
-  payload_off: "0"
+  name: "basic-1"
+  state_topic: "shouse/cmnd/basic-1/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  force_update: true
+
+- platform: mqtt
+  name: "basic-2"
+  state_topic: "shouse/cmnd/basic-2/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
   force_update: true
