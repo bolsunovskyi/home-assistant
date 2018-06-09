@@ -1,21 +1,14 @@
 - platform: yr
-- platform: random
-  name: "Test Random"
 
 - platform: mqtt
   name: "rf-bridge-0"
   state_topic: "shouse/tele/rfbridge-0/RESULT"
-  value_template: '{{ value_json.RfReceived.RfKey }}'
+  value_template: '{{ value_json.RfReceived.Data }}'
   force_update: true
 
 - platform: mqtt
   name: "pir-closet"
   state_topic: "hass/sensors/pir/closet"
-  force_update: true
-
-- platform: mqtt
-  name: "virtual-switch"
-  state_topic: "hass/switches/virtual/closet"
   force_update: true
 
 - platform: mqtt

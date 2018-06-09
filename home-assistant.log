@@ -1,2 +1,140 @@
-2018-05-20 11:14:21 WARNING (Recorder) [homeassistant.components.recorder] Ended unfinished session (id=46 from 2018-05-19 18:18:17.601051)
-2018-05-20 11:15:28 WARNING (MainThread) [homeassistant.components.http.ban] Login attempt or request with invalid authentication from 172.17.42.1
+2018-06-09 10:23:18 ERROR (MainThread) [homeassistant.core] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/entity_platform.py", line 308, in _async_add_entity
+    msg)
+homeassistant.exceptions.HomeAssistantError: Entity id already exists: automation._
+2018-06-09 10:27:23 ERROR (MainThread) [homeassistant.core] Error executing service <ServiceCall mqtt.publish: topic=shouse/cmnd/nodemcu-0/POWER, payload_template={{ trigger.to_state.state }}, qos=0, retain=False>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/template.py", line 132, in async_render
+    return self._compiled.render(kwargs).strip()
+  File "/usr/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/usr/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/lib/python3.6/site-packages/jinja2/sandbox.py", line 385, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'trigger' is undefined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/core.py", line 1002, in _event_to_service_call
+    await service_handler.func(service_call)
+  File "/usr/lib/python3.6/site-packages/homeassistant/components/mqtt/__init__.py", line 443, in async_publish_service
+    template.Template(payload_template, hass).async_render()
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/template.py", line 134, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'trigger' is undefined
+2018-06-09 10:27:27 ERROR (MainThread) [homeassistant.core] Error executing service <ServiceCall mqtt.publish: topic=shouse/cmnd/nodemcu-0/POWER, payload_template={{ trigger.to_state.state }}, qos=0, retain=False>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/template.py", line 132, in async_render
+    return self._compiled.render(kwargs).strip()
+  File "/usr/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/usr/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/lib/python3.6/site-packages/jinja2/sandbox.py", line 385, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'trigger' is undefined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/core.py", line 1002, in _event_to_service_call
+    await service_handler.func(service_call)
+  File "/usr/lib/python3.6/site-packages/homeassistant/components/mqtt/__init__.py", line 443, in async_publish_service
+    template.Template(payload_template, hass).async_render()
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/template.py", line 134, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'trigger' is undefined
+2018-06-09 10:27:37 ERROR (MainThread) [homeassistant.core] Error executing service <ServiceCall mqtt.publish: topic=shouse/cmnd/nodemcu-0/POWER, payload_template={{ trigger.to_state.state }}, qos=0, retain=False>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/template.py", line 132, in async_render
+    return self._compiled.render(kwargs).strip()
+  File "/usr/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/usr/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/lib/python3.6/site-packages/jinja2/sandbox.py", line 385, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'trigger' is undefined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/core.py", line 1002, in _event_to_service_call
+    await service_handler.func(service_call)
+  File "/usr/lib/python3.6/site-packages/homeassistant/components/mqtt/__init__.py", line 443, in async_publish_service
+    template.Template(payload_template, hass).async_render()
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/template.py", line 134, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'trigger' is undefined
+2018-06-09 10:27:39 ERROR (MainThread) [homeassistant.core] Error executing service <ServiceCall mqtt.publish: topic=shouse/cmnd/nodemcu-0/POWER, payload_template={{ trigger.to_state.state }}, qos=0, retain=False>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/template.py", line 132, in async_render
+    return self._compiled.render(kwargs).strip()
+  File "/usr/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/usr/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/lib/python3.6/site-packages/jinja2/sandbox.py", line 385, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'trigger' is undefined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/core.py", line 1002, in _event_to_service_call
+    await service_handler.func(service_call)
+  File "/usr/lib/python3.6/site-packages/homeassistant/components/mqtt/__init__.py", line 443, in async_publish_service
+    template.Template(payload_template, hass).async_render()
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/template.py", line 134, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'trigger' is undefined
+2018-06-09 10:28:26 ERROR (MainThread) [homeassistant.core] Error executing service <ServiceCall mqtt.publish: topic=shouse/cmnd/nodemcu-0/BRIGHTNESS, payload_template={{ trigger.to_state.state }}, qos=0, retain=False>
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/template.py", line 132, in async_render
+    return self._compiled.render(kwargs).strip()
+  File "/usr/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/usr/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/lib/python3.6/site-packages/jinja2/sandbox.py", line 385, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'trigger' is undefined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/core.py", line 1002, in _event_to_service_call
+    await service_handler.func(service_call)
+  File "/usr/lib/python3.6/site-packages/homeassistant/components/mqtt/__init__.py", line 443, in async_publish_service
+    template.Template(payload_template, hass).async_render()
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/template.py", line 134, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'trigger' is undefined

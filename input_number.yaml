@@ -1,0 +1,14 @@
+mirror_current_brightness:
+  name: Текущая яркость зеркала
+  initial: 1023
+  min: 0
+  max: 1023
+  step: 1
+
+mirror_night_brightness:
+  name: Якость зеркала ночью
+  initial: 20
+  min: 0
+  max: 1023
+  step: 1
+

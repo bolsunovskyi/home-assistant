@@ -23,7 +23,7 @@
   action:
     service: notify.lambda_telegram
     data:
-      message: "rf bridge triggered, key: {{ states.sensor.rfbridge0.state }}, last_changed: {{ states.sensor.rfbridge0.last_changed }}"
+      message: "rf bridge triggered, data: {{ states.sensor.rfbridge0.state }}"
 
 - alias: Turn on closet light by button
   trigger:
@@ -55,7 +55,7 @@
     entity_id: sensor.rfbridge0
   condition:
     - condition: template
-      value_template: "{{ (states.sensor.rfbridge0.state == '1' or states.sensor.rfbridge0.state == '2') }}"
+      value_template: "{{ (states.sensor.rfbridge0.state == '393F91' or states.sensor.rfbridge0.state == 'D68A9E') }}"
   action:
     service: homeassistant.turn_on
     entity_id: input_boolean.closet_light
@@ -81,32 +81,52 @@
 
 - alias: Turn on plants light
   trigger:
-    platform: sun
-    event: sunset
-    offset: '-00:30:00'
+    platform: time
+    at: '18:00:00'
   action:
     service: homeassistant.turn_on
     entity_id: input_boolean.plants_light
 
 - alias: Turn on plants light by button
   trigger:
-    platform: template
-    value_template: "{{ states.input_boolean.plants_light.state == 'on' }}"
+    platform: state
+    entity_id: input_boolean.plants_light
   action:
     - service: mqtt.publish
       data:
         topic: shouse/cmnd/basic-2/POWER
-        payload: 'ON'
+        payload_template: '{{ states.input_boolean.plants_light.state.upper() }}'
 
-- alias: Turn off plants light by button
+#- alias: Turn off plants light by button
+#  trigger:
+#    platform: template
+#    value_template: "{{ states.input_boolean.plants_light.state == 'off' }}"
+#  action:
+#    - service: mqtt.publish
+#      data:
+#        topic: shouse/cmnd/basic-2/POWER
+#        payload: 'OFF'
+
+- alias: Включить зеркало
   trigger:
-    platform: template
-    value_template: "{{ states.input_boolean.plants_light.state == 'off' }}"
+    platform: state
+    entity_id: input_boolean.mirror
   action:
     - service: mqtt.publish
       data:
-        topic: shouse/cmnd/basic-2/POWER
-        payload: 'OFF'
+        topic: shouse/cmnd/nodemcu-0/POWER
+        payload_template: "{{ states.input_boolean.mirror.state.upper() }}"
+
+- alias: Установить текущую яркость зеркала
+  trigger:
+    platform: state
+    entity_id: input_number.mirror_current_brightness
+  action:
+    - service: mqtt.publish
+      data:
+        topic: shouse/cmnd/nodemcu-0/BRIGHTNESS
+        payload_template: "{{ states.input_number.mirror_current_brightness.state | int }}"
+
 
 - alias: Turn on plants button test
   trigger:

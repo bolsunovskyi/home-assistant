@@ -1,0 +1,9 @@
+plants_on:
+  name: Включение лампы для цветов
+  has_date: false
+  has_time: true
+
+plants_off:
+  name: Выключение лампы для цветов
+  has_date: false
+  has_time: true

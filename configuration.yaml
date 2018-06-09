@@ -79,3 +79,5 @@ sensor: !include sensors.yaml
 notify: !include notify.yaml
 input_select: !include input_select.yaml
 input_boolean: !include input_boolean.yaml
+input_datetime: !include input_datetime.yaml
+input_number: !include input_number.yaml
