@@ -18,3 +18,17 @@
   payload_on: "ON"
   payload_off: "OFF"
   force_update: true
+
+- platform: mqtt
+  name: "nodemcu-0"
+  state_topic: "shouse/cmnd/nodemcu-0/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  force_update: true
+
+- platform: mqtt
+  name: "pir1"
+  state_topic: "shouse/tele/rfbridge-0/RESULT"
+  value_template: '{{ value_json.RfReceived.Data }}'
+  payload_on: 'D2FA5E'
+  force_update: true

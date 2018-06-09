@@ -16,6 +16,17 @@
       message: "home assistant shutdown"
   alias: hass_shutdown
 
+- alias: включить зеркало по движению
+  trigger:
+    platform: state
+    entity_id: sensor.rfbridge0
+  condition:
+    - condition: template
+      value_template: "{{ states.sensor.rfbridge0.state == 'D2FA5E'}}"
+  action:
+    service: homeassistant.turn_on
+    entity_id: input_boolean.mirror
+
 - alias: rf bridge debug
   trigger:
     platform: state
@@ -27,8 +38,8 @@
 
 - alias: Turn on closet light by button
   trigger:
-    platform: template
-    value_template: "{{ states.input_boolean.closet_light.state == 'on' }}"
+    platform: state
+    entity_id: input_boolean.closet_light
   action:
     - service: mqtt.publish
       data:
@@ -37,17 +48,7 @@
     - service: mqtt.publish
       data:
         topic: shouse/cmnd/basic-1/POWER
-        payload: 'ON'
-
-- alias: Turn off closet light by button
-  trigger:
-    platform: template
-    value_template: "{{ states.input_boolean.closet_light.state == 'off' }}"  
-  action:
-    - service: mqtt.publish
-      data:
-        topic: shouse/cmnd/basic-1/POWER
-        payload: 'OFF'
+        payload_template: '{{ states.input_boolean.closet_light.state.upper() }}'
 
 - alias: Turn on closet light when there is movement
   trigger:
@@ -63,13 +64,25 @@
 - alias: Turn off closet lights by time
   trigger:
     platform: time
-    seconds: 30
+    seconds: 5
   condition:
     - condition: template
       value_template: "{{ (as_timestamp(now()) - (states.sensor.pircloset.state | float)) > (states.input_select.closet_timeout.state | float) and states.binary_sensor.basic1.state == 'on' }}"
   action:
     service: homeassistant.turn_off
     entity_id: input_boolean.closet_light
+
+- alias: Выключить зеркало по времени
+  trigger:
+    platform: time
+    seconds: 5
+  condition:
+    - condition: template
+      value_template: "{{ (as_timestamp(now()) - (states.sensor.pirmirror.state | float)) > (states.input_number.mirror_duration.state | float) and states.binary_sensor.nodemcu0.state == 'on' }}"
+  action:
+    service: homeassistant.turn_off
+    entity_id: input_boolean.mirror
+
 
 - alias: Turn off plants light by time
   trigger:
@@ -97,21 +110,15 @@
         topic: shouse/cmnd/basic-2/POWER
         payload_template: '{{ states.input_boolean.plants_light.state.upper() }}'
 
-#- alias: Turn off plants light by button
-#  trigger:
-#    platform: template
-#    value_template: "{{ states.input_boolean.plants_light.state == 'off' }}"
-#  action:
-#    - service: mqtt.publish
-#      data:
-#        topic: shouse/cmnd/basic-2/POWER
-#        payload: 'OFF'
-
 - alias: Включить зеркало
   trigger:
     platform: state
     entity_id: input_boolean.mirror
   action:
+    - service: mqtt.publish
+      data:
+        topic: hass/sensors/pir/mirror
+        payload_template: '{{ as_timestamp(now()) }}'
     - service: mqtt.publish
       data:
         topic: shouse/cmnd/nodemcu-0/POWER
@@ -128,18 +135,3 @@
         payload_template: "{{ states.input_number.mirror_current_brightness.state | int }}"
 
 
-- alias: Turn on plants button test
-  trigger:
-    platform: template
-    value_template: "{{ states.input_boolean.test_bool.state == 'on'  }}"
-  action:
-    service: homeassistant.turn_on
-    entity_id: input_boolean.plants_light
-
-- alias: Turn off plants button test
-  trigger:
-    platform: template
-    value_template: "{{ states.input_boolean.test_bool.state == 'off'  }}"
-  action:
-    service: homeassistant.turn_off
-    entity_id: input_boolean.plants_light

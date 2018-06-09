@@ -12,5 +12,10 @@
   force_update: true
 
 - platform: mqtt
+  name: "pir-mirror"
+  state_topic: "hass/sensors/pir/mirror"
+  force_update: true
+
+- platform: mqtt
   name: "basic-0"
   state_topic: "shouse/cmnd/basic-0/POWER"

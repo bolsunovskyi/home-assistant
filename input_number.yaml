@@ -12,3 +12,9 @@ mirror_night_brightness:
   max: 1023
   step: 1
 
+mirror_duration:
+  name: Интервал свечения зеркала
+  initial: 30
+  min: 30
+  max: 1200
+  step: 30
