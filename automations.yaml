@@ -24,8 +24,11 @@
     - condition: template
       value_template: "{{ states.sensor.rfbridge0.state == 'D2FA5E'}}"
   action:
-    service: homeassistant.turn_on
-    entity_id: input_boolean.mirror
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.mirror
+    - service: notify.filelogger
+      data:
+        message: "mirror motion triggered"
 
 - alias: rf bridge debug
   trigger:
@@ -115,6 +118,27 @@
   action:
     service: homeassistant.turn_off
     entity_id: input_boolean.plants_light
+
+- alias: Понизить яркость зеркала в ночной режим
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.mirror_night_on.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.mirror_current_brightness
+      value: "{{ states.input_number.mirror_night_brightness.state }}"
+
+- alias: Повысить яркость зеркала в дневной режим
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.mirror_night_off.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.mirror_current_brightness
+      value: 1023
+
 
 - alias: Turn on plants light by button
   trigger:

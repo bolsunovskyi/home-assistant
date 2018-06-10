@@ -17,3 +17,8 @@ homeassistant.exceptions.HomeAssistantError: Entity id already exists: automatio
 2018-06-10 08:26:36 ERROR (MainThread) [homeassistant.core] Invalid service data for input_datetime.set_datetime: Invalid time specified: :0 for dictionary value @ data['time']. Got ':0'
 2018-06-10 08:26:56 ERROR (MainThread) [homeassistant.core] Invalid service data for input_datetime.set_datetime: Invalid time specified: 0:undefined for dictionary value @ data['time']. Got '0:undefined'
 2018-06-10 08:26:56 ERROR (MainThread) [homeassistant.core] Invalid service data for input_datetime.set_datetime: Invalid time specified: 06:undefined for dictionary value @ data['time']. Got '06:undefined'
+2018-06-10 08:52:52 ERROR (SyncWorker_3) [homeassistant.util.yaml] mapping values are not allowed here
+  in "/config/automations.yaml", line 127, column 21
+2018-06-10 08:54:13 ERROR (SyncWorker_18) [homeassistant.util.yaml] mapping values are not allowed here
+  in "/config/automations.yaml", line 137, column 21
+2018-06-10 08:54:50 ERROR (MainThread) [homeassistant.core] Invalid service data for input_datetime.set_datetime: Invalid time specified: :00 for dictionary value @ data['time']. Got ':00'
