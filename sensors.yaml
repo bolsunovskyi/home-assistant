@@ -19,3 +19,13 @@
 - platform: mqtt
   name: "basic-0"
   state_topic: "shouse/cmnd/basic-0/POWER"
+
+- platform: time_date
+  name: "time"
+  display_options:
+    - 'time'
+    - 'date'
+    - 'date_time'
+    - 'time_date'
+    - 'time_utc'
+    - 'beat'

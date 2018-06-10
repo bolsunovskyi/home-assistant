@@ -32,7 +32,7 @@
     platform: state
     entity_id: sensor.rfbridge0
   action:
-    service: notify.lambda_telegram
+    service: notify.filelogger
     data:
       message: "rf bridge triggered, data: {{ states.sensor.rfbridge0.state }}"
 
@@ -84,20 +84,36 @@
     entity_id: input_boolean.mirror
 
 
-- alias: Turn off plants light by time
-  trigger:
-    platform: time
-    at: '22:15:00'
-  action:
-    service: homeassistant.turn_off
-    entity_id: input_boolean.plants_light
+#- alias: Turn off plants light by time
+#  trigger:
+#    platform: time
+#    at: '22:15:00'
+#  action:
+#    service: homeassistant.turn_off
+#    entity_id: input_boolean.plants_light
 
-- alias: Turn on plants light
+#- alias: Turn on plants light
+#  trigger:
+#    platform: time
+#    at: '18:00:00'
+#  action:
+#    service: homeassistant.turn_on
+#    entity_id: input_boolean.plants_light
+
+- alias: Включить лампу для цветов по времени
   trigger:
-    platform: time
-    at: '18:00:00'
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.plants_on.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
   action:
     service: homeassistant.turn_on
+    entity_id: input_boolean.plants_light
+
+- alias: Выключить лампу для цветов по времени
+  trigger:
+    platform: template
+    value_template: "{{ states('sensor.time') == (states.input_datetime.plants_off.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+  action:
+    service: homeassistant.turn_off
     entity_id: input_boolean.plants_light
 
 - alias: Turn on plants light by button

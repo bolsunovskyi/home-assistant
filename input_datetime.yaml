@@ -7,3 +7,13 @@ plants_off:
   name: Выключение лампы для цветов
   has_date: false
   has_time: true
+
+mirror_night_on:
+  name: Начало ночного режима для зеркала
+  has_date: false
+  has_time: true
+
+mirror_night_off:
+  name: Конец ночного режима для зеркала
+  has_date: false
+  has_time: true

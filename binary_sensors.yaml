@@ -26,9 +26,3 @@
   payload_off: "OFF"
   force_update: true
 
-- platform: mqtt
-  name: "pir1"
-  state_topic: "shouse/tele/rfbridge-0/RESULT"
-  value_template: '{{ value_json.RfReceived.Data }}'
-  payload_on: 'D2FA5E'
-  force_update: true

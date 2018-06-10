@@ -1,10 +1,19 @@
-2018-06-09 15:56:58 ERROR (MainThread) [homeassistant.core] Error doing job: Task exception was never retrieved
+2018-06-10 08:26:18 ERROR (MainThread) [homeassistant.core] Error doing job: Task exception was never retrieved
 Traceback (most recent call last):
   File "/usr/lib/python3.6/site-packages/homeassistant/helpers/entity_platform.py", line 308, in _async_add_entity
     msg)
 homeassistant.exceptions.HomeAssistantError: Entity id already exists: automation.___
-2018-06-09 15:56:58 ERROR (MainThread) [homeassistant.core] Error doing job: Task exception was never retrieved
+2018-06-10 08:26:18 ERROR (MainThread) [homeassistant.core] Error doing job: Task exception was never retrieved
 Traceback (most recent call last):
   File "/usr/lib/python3.6/site-packages/homeassistant/helpers/entity_platform.py", line 308, in _async_add_entity
     msg)
 homeassistant.exceptions.HomeAssistantError: Entity id already exists: automation.___
+2018-06-10 08:26:18 ERROR (MainThread) [homeassistant.core] Error doing job: Task exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/site-packages/homeassistant/helpers/entity_platform.py", line 308, in _async_add_entity
+    msg)
+homeassistant.exceptions.HomeAssistantError: Entity id already exists: automation._____
+2018-06-10 08:26:36 ERROR (MainThread) [homeassistant.core] Invalid service data for input_datetime.set_datetime: Invalid time specified: :undefined for dictionary value @ data['time']. Got ':undefined'
+2018-06-10 08:26:36 ERROR (MainThread) [homeassistant.core] Invalid service data for input_datetime.set_datetime: Invalid time specified: :0 for dictionary value @ data['time']. Got ':0'
+2018-06-10 08:26:56 ERROR (MainThread) [homeassistant.core] Invalid service data for input_datetime.set_datetime: Invalid time specified: 0:undefined for dictionary value @ data['time']. Got '0:undefined'
+2018-06-10 08:26:56 ERROR (MainThread) [homeassistant.core] Invalid service data for input_datetime.set_datetime: Invalid time specified: 06:undefined for dictionary value @ data['time']. Got '06:undefined'
