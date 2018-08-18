@@ -34,7 +34,7 @@
     platform: state
     entity_id: sensor.rfbridge0
   condition:
-    condition: and
+    condition: or
     conditions:
       - condition: state
         entity_id: sensor.rfbridge0
