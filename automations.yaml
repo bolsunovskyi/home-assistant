@@ -16,13 +16,34 @@
       message: "home assistant shutdown"
   alias: hass_shutdown
 
+- alias: открытие входной двери
+  trigger:
+    platform: state
+    entity_id: sensor.rfbridge0
+  condition:
+    - condition: state
+      entity_id: sensor.rfbridge0
+      state: '7E9811'
+  action:
+    service: notify.lambda_telegram
+    data:
+      message: "enterance door open"
+
 - alias: включить зеркало по движению
   trigger:
     platform: state
     entity_id: sensor.rfbridge0
   condition:
-    - condition: template
-      value_template: "{{ states.sensor.rfbridge0.state == 'D2FA5E'}}"
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.rfbridge0
+        state: 'D2FA5E'
+      - condition: state
+        entity_id: sensor.rfbridge0
+        state: '7E9811'
+#    - condition: template
+#      value_template: "{{ (states.sensor.rfbridge0.state == 'D2FA5E' or states.sensor.rfbridge0.state == '7E9811') }}"
   action:
     - service: homeassistant.turn_on
       entity_id: input_boolean.mirror
